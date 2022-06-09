@@ -2,7 +2,7 @@ import { Auth0Client, Auth0ClientOptions, User, RedirectLoginResult } from '@aut
 import { AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_REDIRECT_URI, AUTH0_TWITTER_SAMPLE_URI } from '../constants'
 import { kv_cache } from '../services/cache'
 import { access_token_from_headers } from '../services/validators'
-import { Providers, TwitterResponse, ValidationModes } from '../types'
+import { AuthenticatedResponse, Providers, TwitterResponse, ValidationModes } from '../types'
 
 export class Auth
 {
@@ -50,15 +50,15 @@ export class Auth
 
         if( mode == ValidationModes.Headers ) {
             const access_token = access_token_from_headers(request.headers)
-            const authenticated = await this.proxy(
+            const proxied = await this.proxy(
                 provider,
                 access_token
             )
 
             return new Response(
-                JSON.stringify({authenticated: authenticated}),
+                JSON.stringify({authenticated: proxied.authenticated, user: proxied.user}),
                 {
-                    status: authenticated ? 200 : 401
+                    status: proxied.authenticated ? 200 : 401
                 }
             )
         }
@@ -77,16 +77,19 @@ export class Auth
         )
     }
 
-    proxy = async (provider: Providers, access_token: string): Promise<boolean> => {
+    proxy = async (provider: Providers, access_token: string): Promise<AuthenticatedResponse> => {
         switch (provider) {
             case Providers.Twitter:
                 return await fetch(
-                    AUTH0_TWITTER_SAMPLE_URI
+                    AUTH0_TWITTER_SAMPLE_URI,
+                    {
+                        headers: { Authorization: `Bearer ${access_token}` }
+                    }
                 ).then(
                     (res => res.json() as Promise<TwitterResponse>)
-                ).then(res => res.status === 200)
+                ).then(res => ({ authenticated: res?.status !== 401, user: res?.status !== 401 ? res : null }))
             case Providers.Google:
-                return false
+                return { authenticated: false, user: null }
         }
     }
 

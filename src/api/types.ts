@@ -8,6 +8,11 @@ export enum Providers {
     Twitter = 1,
 }
 
+export type AuthenticatedResponse = {
+    authenticated: boolean
+    user: Record<string, any> | null
+}
+
 export type TwitterResponse = {
     status: number
 }
