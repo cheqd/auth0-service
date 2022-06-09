@@ -1,0 +1,7 @@
+name = "auth0-service"
+main = "src/index.ts"
+compatibility_date = "2022-06-08"
+
+kv_namespaces = [
+	{ binding = "CACHE", preview_id = "0a1e626da0ff438285cdb67013a91b31", id = "0a1e626da0ff438285cdb67013a91b31" }
+]
