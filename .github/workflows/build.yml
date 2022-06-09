@@ -22,5 +22,6 @@ jobs:
 
       - name: "Execute build"
         run: |
+          npm install
           npm run build
 
