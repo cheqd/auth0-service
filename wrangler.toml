@@ -84,7 +84,7 @@ route = { pattern = "auth0-proxy-staging.cheqd.net/*", zone_id = "88e06eefedbbd1
 # Details: https://developers.cloudflare.com/workers/learning/how-kv-works
 # @default `[]`
 kv_namespaces = [
-	{ binding = "CREDENTIALS", preview_id = "08f012b41df44fd3b6849100d02b7cba", id = "08f012b41df44fd3b6849100d02b7cba" }
+	{ binding = "CACHE", preview_id = "0a1e626da0ff438285cdb67013a91b31", id = "0a1e626da0ff438285cdb67013a91b31" }
 ]
 
 
