@@ -149,6 +149,8 @@ export class Auth
             case undefined:
                 return { authenticated: false, user: null, provider: ProvidersLiterals._ }
         }
+
+        return { authenticated: false, user: null, provider: ProvidersLiterals._ }
     }
 
     logout = async (): Promise<void> => {
