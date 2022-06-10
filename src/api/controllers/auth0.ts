@@ -87,7 +87,7 @@ export class Auth
                     }
                 ).then(
                     (res => res.json() as Promise<TwitterResponse>)
-                ).then(res => ({ authenticated: res?.status !== 401, user: res?.status !== 401 ? res : null }))
+                ).then(res => ({ authenticated: !res?.status, user: !res?.status ? res : null }))
             case Providers.Google:
                 return { authenticated: false, user: null }
         }
