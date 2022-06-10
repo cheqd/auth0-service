@@ -9,7 +9,7 @@ export const access_token_from_headers = (headers: Headers): string => {
 }
 
 export const parsed_payload_from_body = (body: Record<string, any> | undefined): ParsedRequestPayload | undefined | null => {
-    return { claim: body?.claim ?? '', provider: body?.provider ?? '' }
+    return { access_token: body?.claim ?? '', _provider: body?.provider ?? '' }
 }
 
 // TODO: Embed in-app JWT parsing & verification

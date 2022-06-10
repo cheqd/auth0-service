@@ -1,8 +1,8 @@
 import { Auth0Client, Auth0ClientOptions, User, RedirectLoginResult } from '@auth0/auth0-spa-js'
 import { AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_REDIRECT_URI, AUTH0_URI } from '../constants'
 import { kv_cache } from '../services/cache'
-import { access_token_from_body, access_token_from_headers } from '../services/validators'
-import { AuthenticatedResponse, Providers, Auth0Response, ValidationModes, ProvidersLiterals } from '../types'
+import { parsed_payload_from_body, access_token_from_headers } from '../services/validators'
+import { AuthenticatedResponse, Providers, Auth0Response, ValidationModes, ProvidersLiterals, ParsedRequestPayload } from '../types'
 
 export class Auth
 {
@@ -50,7 +50,7 @@ export class Auth
             )
 
         if( mode === ValidationModes.Body) {
-            const { access_token, _provider } = access_token_from_body(await request.json())
+            const { access_token, _provider } = parsed_payload_from_body(await request.json()) as ParsedRequestPayload
 
             switch (_provider) {
                 case 'google':

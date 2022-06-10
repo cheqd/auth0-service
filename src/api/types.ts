@@ -19,8 +19,8 @@ export enum ProvidersLiterals {
 }
 
 export type ParsedRequestPayload = {
-    claim: string,
-    provider?: string
+    access_token: string,
+    _provider?: string
 }
 
 export type AuthenticatedResponse = {
