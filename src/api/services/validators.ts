@@ -1,3 +1,4 @@
+import { ParsedRequestPayload } from "../types"
 
 export const access_token_from_headers = (headers: Headers): string => {
     const access_token_bearer = headers.get('Authorization')
@@ -7,10 +8,11 @@ export const access_token_from_headers = (headers: Headers): string => {
     return access_token_bearer.replace('Bearer ', '').trim()
 }
 
-export const access_token_from_body = (body: Record<string, any> | undefined): string => {
-    return body?.claim ?? ''
+export const parsed_payload_from_body = (body: Record<string, any> | undefined): ParsedRequestPayload | undefined | null => {
+    return { claim: body?.claim ?? '', provider: body?.provider ?? '' }
 }
 
+// TODO: Embed in-app JWT parsing & verification
 export const is_jwt = () => {
     return
 }

@@ -2,7 +2,7 @@ import { Auth0Client, Auth0ClientOptions, User, RedirectLoginResult } from '@aut
 import { AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_REDIRECT_URI, AUTH0_URI } from '../constants'
 import { kv_cache } from '../services/cache'
 import { access_token_from_body, access_token_from_headers } from '../services/validators'
-import { AuthenticatedResponse, Providers, Auth0Response, ValidationModes } from '../types'
+import { AuthenticatedResponse, Providers, Auth0Response, ValidationModes, ProvidersLiterals } from '../types'
 
 export class Auth
 {
@@ -50,8 +50,23 @@ export class Auth
             )
 
         if( mode === ValidationModes.Body) {
-            const access_token = access_token_from_body(await request.json())
-            const { authenticated, user} = await this.proxy(
+            const { access_token, _provider } = access_token_from_body(await request.json())
+
+            switch (_provider) {
+                case 'google':
+                    provider = Providers.Google
+                    break
+                case 'facebook':
+                    provider = Providers.Facebook
+                    break
+                case 'twiiter':
+                    provider = Providers.Twitter
+                    break
+                case undefined:
+                    throw new Error('invalid_provider: Unsupported provider or provider not set.')
+            }
+
+            const { authenticated, user  } = await this.proxy(
                 provider,
                 access_token
             )
@@ -112,7 +127,7 @@ export class Auth
                     }
                 ).then(
                     (res => res.json() as Promise<Auth0Response>)
-                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null }))
+                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null, provider: ProvidersLiterals.Google }))
             case Providers.Facebook:
                 return await fetch(
                     AUTH0_URI,
@@ -121,7 +136,7 @@ export class Auth
                     }
                 ).then(
                     (res => res.json() as Promise<Auth0Response>)
-                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null }))
+                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null, provider: ProvidersLiterals.Facebook }))
             case Providers.Twitter:
                 return await fetch(
                     AUTH0_URI,
@@ -130,9 +145,9 @@ export class Auth
                     }
                 ).then(
                     (res => res.json() as Promise<Auth0Response>)
-                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null }))
+                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null, provider: ProvidersLiterals.Twitter }))
             case undefined:
-                return { authenticated: false, user: null }
+                return { authenticated: false, user: null, provider: ProvidersLiterals._ }
         }
     }
 

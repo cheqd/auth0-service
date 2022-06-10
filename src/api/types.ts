@@ -5,14 +5,28 @@ export enum ValidationModes {
 }
 
 export enum Providers {
+    _ = -1,
     Google = 0,
     Facebook = 1,
     Twitter = 2,
 }
 
+export enum ProvidersLiterals {
+    _ = 'not_set',
+    Google = 'google',
+    Facebook = 'facebook',
+    Twitter = 'twitter',
+}
+
+export type ParsedRequestPayload = {
+    claim: string,
+    provider?: string
+}
+
 export type AuthenticatedResponse = {
     authenticated: boolean
-    user: Auth0User | string | null
+    user: Auth0User | string | null,
+    provider: ProvidersLiterals
 }
 
 export type Auth0Response = Auth0User | string

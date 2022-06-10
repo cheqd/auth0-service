@@ -26,7 +26,7 @@ router.all(
 router.all(
     '/validate',
     async (request: Request) => {
-        return await (new Auth()).validate(request, ValidationModes.Auth0, Providers.Google)
+        return await (new Auth()).validate(request, ValidationModes.Body, Providers._)
     }
 )
 
