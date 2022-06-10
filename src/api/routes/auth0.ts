@@ -31,9 +31,23 @@ router.all(
 )
 
 router.all(
+    '/google/validate',
+    async (request: Request) => {
+        return await (new Auth()).validate(request, ValidationModes.Body, Providers.Google)
+    }
+)
+
+router.all(
+    '/facebook/validate',
+    async (request: Request) => {
+        return await (new Auth()).validate(request, ValidationModes.Body, Providers.Facebook)
+    }
+)
+
+router.all(
     '/twitter/validate',
     async (request: Request) => {
-        return await (new Auth()).validate(request, ValidationModes.Headers, Providers.Twitter)
+        return await (new Auth()).validate(request, ValidationModes.Body, Providers.Twitter)
     }
 )
 

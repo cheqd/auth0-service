@@ -1,8 +1,8 @@
 import { Auth0Client, Auth0ClientOptions, User, RedirectLoginResult } from '@auth0/auth0-spa-js'
-import { AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_REDIRECT_URI, AUTH0_TWITTER_SAMPLE_URI } from '../constants'
+import { AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_REDIRECT_URI, AUTH0_URI } from '../constants'
 import { kv_cache } from '../services/cache'
-import { access_token_from_headers } from '../services/validators'
-import { AuthenticatedResponse, Providers, TwitterResponse, ValidationModes } from '../types'
+import { access_token_from_body, access_token_from_headers } from '../services/validators'
+import { AuthenticatedResponse, Providers, Auth0Response, ValidationModes } from '../types'
 
 export class Auth
 {
@@ -40,6 +40,31 @@ export class Auth
     }
 
     validate = async (request: Request, mode: ValidationModes, provider: Providers): Promise<Response> => {
+        // Validation Mode: Request Body
+        if( mode === ValidationModes.Body && !request?.body )
+            return new Response(
+                JSON.stringify({error: 'Access token(s) are not set.'}),
+                {
+                    status: 400
+                }
+            )
+
+        if( mode === ValidationModes.Body) {
+            const access_token = access_token_from_body(await request.json())
+            const { authenticated, user} = await this.proxy(
+                provider,
+                access_token
+            )
+
+            return new Response(
+                JSON.stringify({authenticated: authenticated, user: user}),
+                {
+                    status: authenticated ? 200 : 401
+                }
+            )
+        }
+
+        // Validation Mode: Request Headers
         if( mode == ValidationModes.Headers && !request?.headers && !request?.headers.get( 'Authorization' ) ) 
             return new Response(
                 JSON.stringify({error: 'Access token is not set.'}),
@@ -48,17 +73,17 @@ export class Auth
                 }
             )
 
-        if( mode == ValidationModes.Headers ) {
+        if( mode === ValidationModes.Headers ) {
             const access_token = access_token_from_headers(request.headers)
-            const proxied = await this.proxy(
+            const { authenticated, user} = await this.proxy(
                 provider,
                 access_token
             )
 
             return new Response(
-                JSON.stringify({authenticated: proxied.authenticated, user: proxied.user}),
+                JSON.stringify({authenticated: authenticated, user: user}),
                 {
-                    status: proxied.authenticated ? 200 : 401
+                    status: authenticated ? 200 : 401
                 }
             )
         }
@@ -79,16 +104,34 @@ export class Auth
 
     proxy = async (provider: Providers, access_token: string): Promise<AuthenticatedResponse> => {
         switch (provider) {
-            case Providers.Twitter:
+            case Providers.Google:
                 return await fetch(
-                    AUTH0_TWITTER_SAMPLE_URI,
+                    AUTH0_URI,
                     {
                         headers: { Authorization: `Bearer ${access_token}` }
                     }
                 ).then(
-                    (res => res.json() as Promise<TwitterResponse>)
-                ).then(res => ({ authenticated: !res?.status, user: !res?.status ? res : null }))
-            case Providers.Google:
+                    (res => res.json() as Promise<Auth0Response>)
+                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null }))
+            case Providers.Facebook:
+                return await fetch(
+                    AUTH0_URI,
+                    {
+                        headers: { Authorization: `Bearer ${access_token}` }
+                    }
+                ).then(
+                    (res => res.json() as Promise<Auth0Response>)
+                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null }))
+            case Providers.Twitter:
+                return await fetch(
+                    AUTH0_URI,
+                    {
+                        headers: { Authorization: `Bearer ${access_token}` }
+                    }
+                ).then(
+                    (res => res.json() as Promise<Auth0Response>)
+                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null }))
+            case undefined:
                 return { authenticated: false, user: null }
         }
     }

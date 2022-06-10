@@ -7,7 +7,7 @@ declare global {
 
     const _AUTH0_REDIRECT_URI: string
 
-    const _AUTH0_TWITTER_SAMPLE_URI: string
+    const _AUTH0_URI: string
 
     const CACHE: KVNamespace
 }
