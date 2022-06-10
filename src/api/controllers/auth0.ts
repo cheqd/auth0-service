@@ -59,7 +59,7 @@ export class Auth
                 case 'facebook':
                     provider = Providers.Facebook
                     break
-                case 'twiiter':
+                case 'twitter':
                     provider = Providers.Twitter
                     break
                 case undefined:
