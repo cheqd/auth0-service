@@ -32,14 +32,36 @@ export type AuthenticatedResponse = {
 export type Auth0Response = Auth0User | string
 
 export type Auth0User = {
-    sub: string
-    given_name: string
-    family_name: string
-    nickname: string
-    name: string
-    picture: string
-    updated_at: string
+    sub?: string
+    given_name?: string
+    family_name?: string
+    nickname?: string
+    name?: string
+    picture?: string
+    updated_at?: string
     locale?: string
     email?: string
     email_verified?: string
+
+    handle?: string
+}
+
+export type GenericUser = GoogleUser | FacebookUser | TwitterUserLookup
+
+export type GoogleUser = {
+    [x:string]: any
+}
+
+export type FacebookUser = {
+    [x:string]: any
+}
+
+export type TwitterUser = {
+    id: string,
+    name: string,
+    username: string,
+}
+
+export type TwitterUserLookup = {
+    data?: TwitterUser
 }

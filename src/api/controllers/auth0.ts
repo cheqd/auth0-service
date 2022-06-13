@@ -1,7 +1,7 @@
 import { Auth0Client, Auth0ClientOptions, User, RedirectLoginResult } from '@auth0/auth0-spa-js'
 import { AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_REDIRECT_URI, AUTH0_URI } from '../constants'
 import { kv_cache } from '../services/cache'
-import { parsed_payload_from_body, access_token_from_headers } from '../services/validators'
+import { parsed_payload_from_body, access_token_from_headers, fetch_user_info_from_id } from '../services/validators'
 import { AuthenticatedResponse, Providers, Auth0Response, ValidationModes, ProvidersLiterals, ParsedRequestPayload } from '../types'
 
 export class Auth
@@ -145,7 +145,11 @@ export class Auth
                     }
                 ).then(
                     (res => res.json() as Promise<Auth0Response>)
-                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null, provider: ProvidersLiterals.Twitter }))
+                ).then(
+                    res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null, provider: ProvidersLiterals.Twitter })
+                ).then(
+                    async res => ({ authenticated: res.authenticated, user: { ...res.user, handle: await fetch_user_info_from_id<string>(res.user) }, provider: ProvidersLiterals.Twitter })
+                ).catch(error => ({ authenticated: false, user: null, provider: ProvidersLiterals.Twitter }))
             case undefined:
                 return { authenticated: false, user: null, provider: ProvidersLiterals._ }
         }
