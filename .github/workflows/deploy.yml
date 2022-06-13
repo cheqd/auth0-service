@@ -78,6 +78,7 @@ jobs:
             _AUTH0_REDIRECT_URI
             _AUTH0_URI
             _TWITTER_FETCH_USER_URI
+            _TWITTER_BEARER_TOKEN
           wranglerVersion: '2.0.7'
           preCommands: npm install
           command: publish
@@ -87,5 +88,5 @@ jobs:
           _AUTH0_CLIENT_ID: ${{ secrets._AUTH0_CLIENT_ID }}
           _AUTH0_REDIRECT_URI: ${{ secrets._AUTH0_REDIRECT_URI }}
           _AUTH0_URI: ${{ secrets._AUTH0_URI }}
-          _AUTH0_URI: ${{ secrets._AUTH0_URI }}
           _TWITTER_FETCH_USER_URI: ${{ secrets._TWITTER_FETCH_USER_URI }}
+          _TWITTER_BEARER_TOKEN: ${{ secrets._TWITTER_BEARER_TOKEN }}
