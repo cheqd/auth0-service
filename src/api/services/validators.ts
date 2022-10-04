@@ -1,4 +1,4 @@
-import { HEADERS, TWITTER_BEARER_TOKEN, TWITTER_FETCH_USER_URI } from "../constants"
+import { HEADERS } from "../constants"
 import { Auth0User, GenericUser, ParsedRequestPayload, TwitterUserLookup } from "../types"
 
 export const access_token_from_headers = (headers: Headers): string => {
