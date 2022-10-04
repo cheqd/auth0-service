@@ -10,15 +10,3 @@ export const CORS_HEADERS = {
         yield { 'Access-Control-Max-Age': '86400' }
     }
 }
-
-export const AUTH0_DOMAIN = _AUTH0_DOMAIN
-
-export const AUTH0_CLIENT_ID = _AUTH0_CLIENT_ID
-
-export const AUTH0_REDIRECT_URI = _AUTH0_REDIRECT_URI
-
-export const AUTH0_URI = _AUTH0_URI
-
-export const TWITTER_FETCH_USER_URI = _TWITTER_FETCH_USER_URI
-
-export const TWITTER_BEARER_TOKEN = _TWITTER_BEARER_TOKEN
