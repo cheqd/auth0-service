@@ -1,39 +1,21 @@
-# ʕ •́؈•̀) `worker-typescript-template`
+# Auth0 Cloudflare Worker service
 
-A batteries included template for kick starting a TypeScript Cloudflare worker project.
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/cheqd/auth0-service?color=green&label=stable%20release&style=flat-square)](https://github.com/cheqd/auth0-service/releases/latest) ![GitHub Release Date](https://img.shields.io/github/release-date/cheqd/auth0-service?color=green&style=flat-square) [![GitHub license](https://img.shields.io/github/license/cheqd/auth0-service?color=blue&style=flat-square)](https://github.com/cheqd/auth0-service/blob/main/LICENSE)
 
-## Note: You must use [wrangler](https://developers.cloudflare.com/workers/cli-wrangler/install-update) 1.17 or newer to use this template
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/cheqd/auth0-service?include_prereleases&label=dev%20release&style=flat-square)](https://github.com/cheqd/auth0-service/releases/) ![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/cheqd/auth0-service/latest?style=flat-square) [![GitHub contributors](https://img.shields.io/github/contributors/cheqd/auth0-service?label=contributors%20%E2%9D%A4%EF%B8%8F&style=flat-square)](https://github.com/cheqd/auth0-service/graphs/contributors)
 
-## 🔋 Getting Started
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cheqd/auth0-service/Workflow%20Dispatch?label=workflows&style=flat-square)](https://github.com/cheqd/auth0-service/actions/workflows/dispatch.yml) [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cheqd/auth0-service/CodeQL?label=CodeQL&style=flat-square)](https://github.com/cheqd/auth0-service/actions/workflows/codeql.yml) ![GitHub repo size](https://img.shields.io/github/repo-size/cheqd/auth0-service?style=flat-square)
 
-This template is meant to be used with [Wrangler](https://github.com/cloudflare/wrangler). If you are not already familiar with the tool, we recommend that you install the tool and configure it to work with your [Cloudflare account](https://dash.cloudflare.com). Documentation can be found [here](https://developers.cloudflare.com/workers/tooling/wrangler/).
+## ℹ️ Overview
 
-To generate using Wrangler, run this command:
+The purpose of this [`@cheqd/auth0-service` NPM package](https://www.npmjs.com/package/@cheqd/auth0-service) is to provide an OAuth connect via the Auth0 service for credentials in [wallet.cheqd.io](https://wallet.cheqd.io) web app.
 
-```bash
-wrangler generate my-ts-project https://github.com/cloudflare/worker-typescript-template
-```
+## 💬 Community
 
-### 👩 💻 Developing
+The [**cheqd Community Slack**](http://cheqd.link/join-cheqd-slack) is our primary chat channel for the open-source community, software developers, and node operators.
 
-[`src/index.ts`](./src/index.ts) calls the request handler in [`src/handler.ts`](./src/handler.ts), and will return the [request method](https://developer.mozilla.org/en-US/docs/Web/API/Request/method) for the given request.
+Please reach out to us there for discussions, help, and feedback on the project.
 
-### 🧪 Testing
+## 🙋 Find us elsewhere
 
-This template comes with jest tests which simply test that the request handler can handle each request method. `npm test` will run your tests.
-
-### ✏️ Formatting
-
-This template uses [`prettier`](https://prettier.io/) to format the project. To invoke, run `npm run format`.
-
-### 👀 Previewing and Publishing
-
-For information on how to preview and publish your worker, please see the [Wrangler docs](https://developers.cloudflare.com/workers/tooling/wrangler/commands/#publish).
-
-## 🤢 Issues
-
-If you run into issues with this specific project, please feel free to file an issue [here](https://github.com/cloudflare/worker-typescript-template/issues). If the problem is with Wrangler, please file an issue [here](https://github.com/cloudflare/wrangler/issues).
-
-## ⚠️ Caveats
-
-The `service-worker-mock` used by the tests is not a perfect representation of the Cloudflare Workers runtime. It is a general approximation. We recommend that you test end to end with `wrangler dev` in addition to a [staging environment](https://developers.cloudflare.com/workers/tooling/wrangler/configuration/environments/) to test things before deploying.
+[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge\&logo=telegram\&logoColor=white)](https://t.me/cheqd) [![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge\&logo=discord\&logoColor=white)](http://cheqd.link/discord-github) [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge\&logo=twitter\&logoColor=white)](https://twitter.com/intent/follow?screen\_name=cheqd\_io) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge\&logo=linkedin\&logoColor=white)](http://cheqd.link/linkedin) [![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge\&logo=slack\&logoColor=white)](http://cheqd.link/join-cheqd-slack) [![Medium](https://img.shields.io/badge/Medium-12100E?style=for-the-badge\&logo=medium\&logoColor=white)](https://blog.cheqd.io) [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge\&logo=youtube\&logoColor=white)](https://www.youtube.com/channel/UCBUGvvH6t3BAYo5u41hJPzw/)
