@@ -7,5 +7,4 @@ declare global {
     const AUTH0_URI: string
     const TWITTER_FETCH_USER_URI: string
     const TWITTER_BEARER_TOKEN: string
-    const CACHE: KVNamespace
 }

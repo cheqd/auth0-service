@@ -9,9 +9,6 @@ name = "auth0-service"
 # Entrypoint/path to the file that will be executed
 main = "src/index.ts"
 
-# Cloudflare Account ID
-account_id = ""
-
 # Date in yyyy-mm-dd to determine which version of Workers runtime to use
 # Details: https://developers.cloudflare.com/workers/platform/compatibility-dates/ 
 compatibility_date = "2022-05-24"
@@ -35,9 +32,9 @@ route = { pattern = "auth0-service.cheqd.net/*", zone_id = "88e06eefedbbd140a12a
 # KV Namespaces accessible from the Worker
 # Details: https://developers.cloudflare.com/workers/learning/how-kv-works
 # @default `[]`
-kv_namespaces = [
-	{ binding = "CACHE", preview_id = "0a1e626da0ff438285cdb67013a91b31", id = "0a1e626da0ff438285cdb67013a91b31" }
-]
+# kv_namespaces = [
+# 	{ binding = "", preview_id = "", id = "" }
+# ]
 
 # Map of environment variables to set when deploying the Worker
 # Not inherited. @default `{}`
@@ -83,9 +80,9 @@ route = { pattern = "auth0-service-staging.cheqd.net/*", zone_id = "88e06eefedbb
 # KV Namespaces accessible from the Worker
 # Details: https://developers.cloudflare.com/workers/learning/how-kv-works
 # @default `[]`
-kv_namespaces = [
-	{ binding = "CACHE", preview_id = "0a1e626da0ff438285cdb67013a91b31", id = "0a1e626da0ff438285cdb67013a91b31" }
-]
+# kv_namespaces = [
+# 	{ binding = "", preview_id = "", id = "" }
+# ]
 
 
 ###############################################################
