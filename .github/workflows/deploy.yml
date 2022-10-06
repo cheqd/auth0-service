@@ -6,87 +6,33 @@ defaults:
     shell: bash
 
 jobs:
+  
   staging-deploy:
     name: "Cloudflare - Staging"
     runs-on: ubuntu-latest
     environment:
       name: staging
-      url: https://auth0-proxy-staging.cheqd.net/
+      url: https://auth0-service-staging.cheqd.net/
 
     steps:
       - uses: actions/checkout@v3
       
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
-          # cache: 'npm' <--- Commenting out, see: https://github.com/bahmutov/npm-install/issues/80, as of 13th of June 2022.
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
       - name: Publish to Cloudflare
         uses: cloudflare/wrangler-action@2.0.0
         with:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          environment: staging
-          secrets: |
-            _AUTH0_DOMAIN
-            _AUTH0_CLIENT_ID
-            _AUTH0_REDIRECT_URI
-            _AUTH0_URI
-            _TWITTER_FETCH_USER_URI
-            _TWITTER_BEARER_TOKEN
-          wranglerVersion: '2.0.7'
-          preCommands: npm install
+          environment: "staging"
+          wranglerVersion: '2.0.27'
+          preCommands: npm ci
           command: publish --env staging
-        env:
-          NPM_GITHUB_PAT: ${{ secrets.NPM_GITHUB_PAT }}
-          _AUTH0_DOMAIN: ${{ secrets._AUTH0_DOMAIN }}
-          _AUTH0_CLIENT_ID: ${{ secrets._AUTH0_CLIENT_ID }}
-          _AUTH0_REDIRECT_URI: ${{ secrets._AUTH0_REDIRECT_URI }}
-          _AUTH0_URI: ${{ secrets._AUTH0_URI }}
-          _TWITTER_FETCH_USER_URI: ${{ secrets._TWITTER_FETCH_USER_URI }}
-          _TWITTER_BEARER_TOKEN: ${{ secrets._TWITTER_BEARER_TOKEN }}
-
-  production-deploy:
-    name: "Cloudflare - Production"
-    needs: staging-deploy
-    if: ${{ success() && ( github.ref_name == 'main' ) }}
-    runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-    environment:
-      name: production
-      url: https://auth0-proxy.cheqd.net/
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-          # cache: 'npm' <--- Commenting out, see: https://github.com/bahmutov/npm-install/issues/80, as of 13th of June 2022.
-
-      - name: Publish to Cloudflare
-        uses: cloudflare/wrangler-action@2.0.0
-        with:
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           secrets: |
-            _AUTH0_DOMAIN
-            _AUTH0_CLIENT_ID
-            _AUTH0_REDIRECT_URI
-            _AUTH0_URI
-            _TWITTER_FETCH_USER_URI
-            _TWITTER_BEARER_TOKEN
-          wranglerVersion: '2.0.7'
-          preCommands: npm install
-          command: publish
+            TWITTER_BEARER_TOKEN
         env:
-          NPM_GITHUB_PAT: ${{ secrets.NPM_GITHUB_PAT }}
-          _AUTH0_DOMAIN: ${{ secrets._AUTH0_DOMAIN }}
-          _AUTH0_CLIENT_ID: ${{ secrets._AUTH0_CLIENT_ID }}
-          _AUTH0_REDIRECT_URI: ${{ secrets._AUTH0_REDIRECT_URI }}
-          _AUTH0_URI: ${{ secrets._AUTH0_URI }}
-          _TWITTER_FETCH_USER_URI: ${{ secrets._TWITTER_FETCH_USER_URI }}
-          _TWITTER_BEARER_TOKEN: ${{ secrets._TWITTER_BEARER_TOKEN }}
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}

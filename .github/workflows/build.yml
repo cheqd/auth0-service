@@ -11,17 +11,18 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
       
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
-          # cache: 'npm' <--- Commenting out, see: https://github.com/bahmutov/npm-install/issues/80, as of 13th of June 2022.
-          # cache-dependency-path: '**/package-lock.json' <--- Commenting out, see: https://github.com/bahmutov/npm-install/issues/80, as of 13th of June 2022.
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
       - name: "Execute build"
         run: |
-          npm install
+          npm ci
           npm run build
-
+      
+      # Temporarily disabling tests until the workflow setup is sorted. Please reactivate when ready.
+      # - name: "Execute tests"
+      #   run: npm test

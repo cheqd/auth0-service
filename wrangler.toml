@@ -9,9 +9,6 @@ name = "auth0-service"
 # Entrypoint/path to the file that will be executed
 main = "src/index.ts"
 
-# Cloudflare Account ID
-account_id = ""
-
 # Date in yyyy-mm-dd to determine which version of Workers runtime to use
 # Details: https://developers.cloudflare.com/workers/platform/compatibility-dates/ 
 compatibility_date = "2022-05-24"
@@ -30,19 +27,27 @@ usage_model = "bundled"
 workers_dev = true
 
 # Route to publish the Worker
-route = { pattern = "auth0-proxy.cheqd.net/*", zone_id = "88e06eefedbbd140a12ac3dd1b21a7af" }
+route = { pattern = "auth0-service.cheqd.net/*", zone_id = "88e06eefedbbd140a12ac3dd1b21a7af" }
 
 # KV Namespaces accessible from the Worker
 # Details: https://developers.cloudflare.com/workers/learning/how-kv-works
 # @default `[]`
-kv_namespaces = [
-	{ binding = "CACHE", preview_id = "0a1e626da0ff438285cdb67013a91b31", id = "0a1e626da0ff438285cdb67013a91b31" }
-]
+# kv_namespaces = [
+# 	{ binding = "", preview_id = "", id = "" }
+# ]
 
 # Map of environment variables to set when deploying the Worker
 # Not inherited. @default `{}`
-# [vars]
+[vars]
 
+# Auth0 settings
+AUTH0_DOMAIN = "https://cheqd.eu.auth0.com"
+AUTH0_CLIENT_ID = "XZoup26nKUVVtxdtuvcxXiIq6NPhzKoh"
+AUTH0_REDIRECT_URI = "https://cheqd.eu.auth0.com/login/callback"
+AUTH0_URI = "https://cheqd.eu.auth0.com/userinfo"
+
+# Twitter API URL
+TWITTER_FETCH_USER_URI = "https://api.twitter.com/2/users"
 
 ###############################################################
 ###             SECTION 3: Local Development                ###
@@ -67,25 +72,25 @@ kv_namespaces = [
 
 [env.staging]
 # Worker name - Staging Environment
-name = "auth0-proxy-staging"
+name = "auth0-service-staging"
 
 # Deploy to NAME.SUBDOMAIN.workers.dev?
 # @default `true`
 workers_dev = true
 
 # Route to publish the Worker
-route = { pattern = "auth0-proxy-staging.cheqd.net/*", zone_id = "88e06eefedbbd140a12ac3dd1b21a7af" }
+route = { pattern = "auth0-service-staging.cheqd.net/*", zone_id = "88e06eefedbbd140a12ac3dd1b21a7af" }
 
 # Map of environment variables to set when deploying the Worker
 # Not inherited. @default `{}`
-# vars = { ENVIRONMENT = "staging", ... }
+vars = { ENVIRONMENT = "staging", AUTH0_DOMAIN = "https://cheqd.eu.auth0.com", AUTH0_CLIENT_ID = "XZoup26nKUVVtxdtuvcxXiIq6NPhzKoh", AUTH0_REDIRECT_URI = "https://cheqd.eu.auth0.com/login/callback", AUTH0_URI = "https://cheqd.eu.auth0.com/userinfo", TWITTER_FETCH_USER_URI = "https://api.twitter.com/2/users" }
 
 # KV Namespaces accessible from the Worker
 # Details: https://developers.cloudflare.com/workers/learning/how-kv-works
 # @default `[]`
-kv_namespaces = [
-	{ binding = "CACHE", preview_id = "0a1e626da0ff438285cdb67013a91b31", id = "0a1e626da0ff438285cdb67013a91b31" }
-]
+# kv_namespaces = [
+# 	{ binding = "", preview_id = "", id = "" }
+# ]
 
 
 ###############################################################

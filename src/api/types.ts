@@ -6,16 +6,12 @@ export enum ValidationModes {
 
 export enum Providers {
     _ = -1,
-    Google = 0,
-    Facebook = 1,
-    Twitter = 2,
+    Twitter = 0
 }
 
 export enum ProvidersLiterals {
     _ = 'not_set',
-    Google = 'google',
-    Facebook = 'facebook',
-    Twitter = 'twitter',
+    Twitter = 'twitter'
 }
 
 export type ParsedRequestPayload = {
@@ -46,15 +42,7 @@ export type Auth0User = {
     handle?: string
 }
 
-export type GenericUser = GoogleUser | FacebookUser | TwitterUserLookup
-
-export type GoogleUser = {
-    [x:string]: any
-}
-
-export type FacebookUser = {
-    [x:string]: any
-}
+export type GenericUser = TwitterUserLookup
 
 export type TwitterUser = {
     id: string,

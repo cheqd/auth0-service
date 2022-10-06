@@ -1,7 +1,14 @@
 {
-  "name": "auth0-service",
+  "name": "@cheqd/auth0-service",
   "version": "1.0.0",
-  "description": "Cloudflare worker TypeScript template",
+  "license": "Apache-2.0",
+  "author": "Cheqd Foundation Limited (https://github.com/cheqd)",
+  "repository": "https://github.com/cheqd/auth0-service.git",
+  "bugs": {
+    "url": "https://github.com/cheqd/auth0-service/issues"
+  },
+  "homepage": "https://github.com/cheqd/auth0-service#readme",
+  "source": "src/index.ts",
   "main": "dist/worker.js",
   "scripts": {
     "build": "webpack",
@@ -9,8 +16,6 @@
     "lint": "eslint --max-warnings=0 src && prettier --check '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
     "test": "jest --config jestconfig.json --verbose"
   },
-  "author": "author",
-  "license": "MIT OR Apache-2.0",
   "eslintConfig": {
     "root": true,
     "extends": [
@@ -18,26 +23,34 @@
       "prettier"
     ]
   },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^3.0.0",
-    "@types/jest": "^26.0.23",
-    "@types/service-worker-mock": "^2.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.16.1",
-    "@typescript-eslint/parser": "^4.16.1",
-    "eslint": "^7.21.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-config-typescript": "^3.0.0",
-    "jest": "^27.0.1",
-    "prettier": "^2.3.0",
-    "service-worker-mock": "^2.0.5",
-    "ts-jest": "^27.0.1",
-    "ts-loader": "^9.2.2",
-    "typescript": "^4.3.2",
-    "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.0"
-  },
   "dependencies": {
-    "@auth0/auth0-spa-js": "^1.22.0",
-    "itty-router": "^2.6.1"
+    "@auth0/auth0-spa-js": "^1.22.4",
+    "itty-router": "^2.6.6"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^3.16.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.6",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
+    "@types/jest": "^27.5.2",
+    "@types/service-worker-mock": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "conventional-changelog-conventionalcommits": "^5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-typescript": "^3.0.0",
+    "jest": "^27.5.1",
+    "prettier": "^2.7.1",
+    "semantic-release": "^19.0.5",
+    "service-worker-mock": "^2.0.5",
+    "ts-jest": "^27.1.5",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.8.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }

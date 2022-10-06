@@ -3,22 +3,8 @@ export const HEADERS = {
     text: { 'Content-Type': 'text/plain' },
 }
 
-export const CORS_HEADERS = {
-    [Symbol.iterator]: function*(): Record<any, any>{
-        yield { 'Access-Control-Allow-Origin': '*' }
-        yield { 'Access-Control-Allow-Methods': 'GET,OPTIONS' }
-        yield { 'Access-Control-Max-Age': '86400' }
-    }
-}
-
-export const AUTH0_DOMAIN = _AUTH0_DOMAIN
-
-export const AUTH0_CLIENT_ID = _AUTH0_CLIENT_ID
-
-export const AUTH0_REDIRECT_URI = _AUTH0_REDIRECT_URI
-
-export const AUTH0_URI = _AUTH0_URI
-
-export const TWITTER_FETCH_USER_URI = _TWITTER_FETCH_USER_URI
-
-export const TWITTER_BEARER_TOKEN = _TWITTER_BEARER_TOKEN
+export const CORS_HEADERS: Iterable<[string, string]> = [
+	['Access-Control-Allow-Origin', '*'],
+	['Access-Control-Allow-Methods', 'GET,OPTIONS'],
+	['Access-Control-Max-Age', '86400']
+]

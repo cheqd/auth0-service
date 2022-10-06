@@ -1,6 +1,4 @@
 import { Auth0Client, Auth0ClientOptions, User, RedirectLoginResult } from '@auth0/auth0-spa-js'
-import { AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_REDIRECT_URI, AUTH0_URI } from '../constants'
-import { kv_cache } from '../services/cache'
 import { parsed_payload_from_body, access_token_from_headers, fetch_user_info_from_id } from '../services/validators'
 import { AuthenticatedResponse, Providers, Auth0Response, ValidationModes, ProvidersLiterals, ParsedRequestPayload } from '../types'
 
@@ -15,8 +13,7 @@ export class Auth
 
         this.auth0 = new Auth0Client(
             this.auth0_client_options = {
-                ...auth0_client_options,
-                cache: kv_cache
+                ...auth0_client_options
             } as Auth0ClientOptions
         )
     }
@@ -53,12 +50,6 @@ export class Auth
             const { access_token, _provider } = parsed_payload_from_body(await request.json()) as ParsedRequestPayload
 
             switch (_provider) {
-                case 'google':
-                    provider = Providers.Google
-                    break
-                case 'facebook':
-                    provider = Providers.Facebook
-                    break
                 case 'twitter':
                     provider = Providers.Twitter
                     break
@@ -119,24 +110,6 @@ export class Auth
 
     proxy = async (provider: Providers, access_token: string): Promise<AuthenticatedResponse> => {
         switch (provider) {
-            case Providers.Google:
-                return await fetch(
-                    AUTH0_URI,
-                    {
-                        headers: { Authorization: `Bearer ${access_token}` }
-                    }
-                ).then(
-                    (res => res.json() as Promise<Auth0Response>)
-                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null, provider: ProvidersLiterals.Google }))
-            case Providers.Facebook:
-                return await fetch(
-                    AUTH0_URI,
-                    {
-                        headers: { Authorization: `Bearer ${access_token}` }
-                    }
-                ).then(
-                    (res => res.json() as Promise<Auth0Response>)
-                ).then(res => ({ authenticated: typeof res === 'object', user: typeof res === 'object' ? res : null, provider: ProvidersLiterals.Facebook }))
             case Providers.Twitter:
                 return await fetch(
                     AUTH0_URI,
