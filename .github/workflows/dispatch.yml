@@ -19,9 +19,6 @@ jobs:
     name: "Deploy"
     needs: call-build
     uses: ./.github/workflows/deploy.yml
-    concurrency: 
-      group: ${{ github.workflow }}
-      cancel-in-progress: false
     secrets: inherit
 
   call-release:
