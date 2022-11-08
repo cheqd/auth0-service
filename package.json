@@ -1,6 +1,6 @@
 {
   "name": "@cheqd/auth0-service",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "Apache-2.0",
   "author": "Cheqd Foundation Limited (https://github.com/cheqd)",
   "repository": "https://github.com/cheqd/auth0-service.git",
