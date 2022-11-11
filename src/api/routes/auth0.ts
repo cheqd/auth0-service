@@ -2,7 +2,7 @@ import { Router } from 'itty-router'
 import { Auth } from '../controllers/auth0'
 import { Providers, ValidationModes } from '../types'
 
-const router = Router({ base: '/api' })
+const router = Router({ base: '/api/auth0' })
 
 router.all(
     '/',

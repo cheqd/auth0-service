@@ -6,7 +6,7 @@ import error_handler from './error_handler'
 const router = Router()
 
 router
-    .all( '/api/*', auth0_router.handle)
+    .all( '/api/auth0/*', auth0_router.handle)
 
 router.all('*', error_handler)
 
