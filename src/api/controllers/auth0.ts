@@ -153,8 +153,6 @@ export class Auth {
 			default:
 				return { authenticated: false, user: null, provider: ProvidersLiterals._ }
 		}
-
-		return { authenticated: false, user: null, provider: ProvidersLiterals._ }
 	}
 
 	getDiscordUser = async (accessToken: string): Promise<Auth0User | Error> => {
