@@ -1,8 +1,7 @@
 import {
 	Auth0Client,
 	Auth0ClientOptions,
-	User,
-	RedirectLoginResult,
+	User
 } from '@auth0/auth0-spa-js'
 import {
 	parsed_payload_from_body,
@@ -11,7 +10,6 @@ import {
 import {
 	AuthenticatedResponse,
 	Providers,
-	Auth0Response,
 	ValidationModes,
 	ProvidersLiterals,
 	ParsedRequestPayload,
