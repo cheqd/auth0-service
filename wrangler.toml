@@ -46,9 +46,6 @@ AUTH0_CLIENT_ID = "XZoup26nKUVVtxdtuvcxXiIq6NPhzKoh"
 AUTH0_REDIRECT_URI = "https://cheqd.eu.auth0.com/login/callback"
 AUTH0_URI = "https://cheqd.eu.auth0.com/userinfo"
 
-# Twitter API URL
-TWITTER_FETCH_USER_URI = "https://api.twitter.com/2/users"
-
 ###############################################################
 ###             SECTION 3: Local Development                ###
 ###############################################################
@@ -83,7 +80,7 @@ route = { pattern = "auth0-service-staging.cheqd.net/*", zone_id = "88e06eefedbb
 
 # Map of environment variables to set when deploying the Worker
 # Not inherited. @default `{}`
-vars = { ENVIRONMENT = "staging", AUTH0_DOMAIN = "https://cheqd.eu.auth0.com", AUTH0_CLIENT_ID = "XZoup26nKUVVtxdtuvcxXiIq6NPhzKoh", AUTH0_REDIRECT_URI = "https://cheqd.eu.auth0.com/login/callback", AUTH0_URI = "https://cheqd.eu.auth0.com/userinfo", TWITTER_FETCH_USER_URI = "https://api.twitter.com/2/users" }
+vars = { ENVIRONMENT = "staging", AUTH0_DOMAIN = "https://cheqd.eu.auth0.com", AUTH0_CLIENT_ID = "XZoup26nKUVVtxdtuvcxXiIq6NPhzKoh", AUTH0_REDIRECT_URI = "https://cheqd.eu.auth0.com/login/callback", AUTH0_URI = "https://cheqd.eu.auth0.com/userinfo" }
 
 # KV Namespaces accessible from the Worker
 # Details: https://developers.cloudflare.com/workers/learning/how-kv-works
