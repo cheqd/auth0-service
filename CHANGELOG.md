@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/cheqd/auth0-service/compare/1.0.2...1.0.3) (2022-11-11)
+
+
+### Bug Fixes
+
+* Discord user handling [DEV-1896] ([#27](https://github.com/cheqd/auth0-service/issues/27)) ([4b46ec2](https://github.com/cheqd/auth0-service/commit/4b46ec26f1f677fbd6b27749fcc847475797d7fb))
+
 ## [1.0.2](https://github.com/cheqd/auth0-service/compare/1.0.1...1.0.2) (2022-11-08)
 
 ## [1.0.1](https://github.com/cheqd/auth0-service/compare/1.0.0...1.0.1) (2022-10-17)
