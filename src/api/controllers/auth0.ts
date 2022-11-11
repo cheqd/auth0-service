@@ -1,17 +1,15 @@
 import {
 	Auth0Client,
 	Auth0ClientOptions,
-	User,
-	RedirectLoginResult,
+	User
 } from '@auth0/auth0-spa-js'
 import {
 	parsed_payload_from_body,
-	access_token_from_headers,
+	access_token_from_headers
 } from '../services/validators'
 import {
 	AuthenticatedResponse,
 	Providers,
-	Auth0Response,
 	ValidationModes,
 	ProvidersLiterals,
 	ParsedRequestPayload,
@@ -153,8 +151,6 @@ export class Auth {
 			default:
 				return { authenticated: false, user: null, provider: ProvidersLiterals._ }
 		}
-
-		return { authenticated: false, user: null, provider: ProvidersLiterals._ }
 	}
 
 	getDiscordUser = async (accessToken: string): Promise<Auth0User | Error> => {

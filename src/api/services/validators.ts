@@ -1,5 +1,4 @@
-import { HEADERS } from "../constants"
-import { Auth0User, GenericUser, ParsedRequestPayload, TwitterUserLookup } from "../types"
+import { ParsedRequestPayload } from "../types"
 
 export const access_token_from_headers = (headers: Headers): string => {
 	const access_token_bearer = headers.get('Authorization')

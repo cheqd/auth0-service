@@ -13,7 +13,8 @@ export enum Providers {
 export enum ProvidersLiterals {
 	_ = 'not_set',
 	Twitter = 'twitter',
-	Discord = 'discord'
+	Discord = 'discord',
+	GitHub = 'github'
 }
 
 export type ParsedRequestPayload = {
