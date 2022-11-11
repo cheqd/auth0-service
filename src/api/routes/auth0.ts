@@ -30,12 +30,5 @@ router.all(
     }
 )
 
-router.all(
-    '/validate/twitter',
-    async (request: Request) => {
-        return await (new Auth()).validate(request, ValidationModes.Body, Providers.Twitter)
-    }
-)
-
 export default router
 
