@@ -4,12 +4,6 @@ export enum ValidationModes {
 	Auth0 = 2,
 }
 
-export enum Providers {
-	_ = -1,
-	Twitter = 0,
-	Discord = 1
-}
-
 export enum ProvidersLiterals {
 	_ = 'not_set',
 	Twitter = 'twitter',
