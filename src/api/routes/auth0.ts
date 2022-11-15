@@ -1,6 +1,6 @@
 import { Router } from 'itty-router'
 import { Auth } from '../controllers/auth0'
-import { Providers, ValidationModes } from '../types'
+import { ProvidersLiterals, ValidationModes } from '../types'
 
 const router = Router({ base: '/api/auth0' })
 
@@ -26,7 +26,7 @@ router.all(
 router.all(
     '/validate',
     async (request: Request) => {
-        return await (new Auth()).validate(request, ValidationModes.Body, Providers._)
+        return await (new Auth()).validate(request, ValidationModes.Body, ProvidersLiterals._)
     }
 )
 
