@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/cheqd/auth0-service/compare/1.0.4...1.0.5) (2022-11-15)
+
+
+### Bug Fixes
+
+* Auth0 GitHub provider ([#29](https://github.com/cheqd/auth0-service/issues/29)) ([b064e35](https://github.com/cheqd/auth0-service/commit/b064e357d187f5d0350c280febb4f000acf1578a))
+
 ## [1.0.4](https://github.com/cheqd/auth0-service/compare/1.0.3...1.0.4) (2022-11-11)
 
 
