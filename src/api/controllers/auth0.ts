@@ -1,17 +1,14 @@
 import {
 	Auth0Client,
 	Auth0ClientOptions,
-	User,
-	RedirectLoginResult,
+	User
 } from '@auth0/auth0-spa-js'
 import {
 	parsed_payload_from_body,
-	access_token_from_headers,
+	access_token_from_headers
 } from '../services/validators'
 import {
 	AuthenticatedResponse,
-	Providers,
-	Auth0Response,
 	ValidationModes,
 	ProvidersLiterals,
 	ParsedRequestPayload,
@@ -51,7 +48,7 @@ export class Auth {
 		return await this.auth0.getUser()
 	}
 
-	validate = async (request: Request, mode: ValidationModes, provider: Providers): Promise<Response> => {
+	validate = async (request: Request, mode: ValidationModes, provider: ProvidersLiterals): Promise<Response> => {
 		// Validation Mode: Request Body
 		if (mode === ValidationModes.Body && !request?.body)
 			return new Response(
@@ -64,10 +61,13 @@ export class Auth {
 
 			switch (_provider) {
 				case 'twitter':
-					provider = Providers.Twitter
+					provider = ProvidersLiterals.Twitter
 					break
 				case 'discord':
-					provider = Providers.Discord
+					provider = ProvidersLiterals.Discord
+					break
+				case 'github':
+					provider = ProvidersLiterals.GitHub
 					break
 				case undefined:
 					throw new Error('invalid_provider: Unsupported provider or provider not set.')
@@ -116,60 +116,27 @@ export class Auth {
 		)
 	}
 
-	proxy = async (provider: Providers, accessToken: string): Promise<AuthenticatedResponse> => {
-		switch (provider) {
-			case Providers.Twitter:
-				return this.getTwitterUser(accessToken).then(async resp => {
-					if (this.isAuthUser(resp)) {
-						return {
-							authenticated: true,
-							user: resp,
-							provider: ProvidersLiterals.Twitter,
-						} as AuthenticatedResponse
-					}
+	proxy = async (provider: ProvidersLiterals, accessToken: string): Promise<AuthenticatedResponse> => {
+		return this.getUserFromAccessToken(accessToken).then(async resp => {
+			if (this.isAuthUser(resp)) {
+				if (this.isValidProvider(provider, resp.sub!)) {
+					return {
+						authenticated: true,
+						user: resp,
+						provider: provider,
+					} as AuthenticatedResponse
+				}
 
-					return this.buildErrorResponse(ProvidersLiterals.Twitter, resp)
-				}).catch(err => {
-					return this.buildErrorResponse(ProvidersLiterals.Twitter, err)
-				})
+				return this.buildErrorResponse(provider, new Error('provider is not supported by the service'))
+			}
 
-				break;
-			case Providers.Discord:
-				return this.getDiscordUser(accessToken).then(async resp => {
-					if (this.isAuthUser(resp)) {
-						return {
-							authenticated: true,
-							user: resp,
-							provider: ProvidersLiterals.Discord,
-						}
-					}
-
-					return this.buildErrorResponse(ProvidersLiterals.Discord, resp)
-				}).catch(err => {
-					return this.buildErrorResponse(ProvidersLiterals.Discord, err)
-				})
-
-				break;
-			default:
-				return { authenticated: false, user: null, provider: ProvidersLiterals._ }
-		}
-
-		return { authenticated: false, user: null, provider: ProvidersLiterals._ }
+			return this.buildErrorResponse(provider, resp)
+		}).catch((err: any) => {
+			return this.buildErrorResponse(provider, err)
+		})
 	}
 
-	getDiscordUser = async (accessToken: string): Promise<Auth0User | Error> => {
-		try {
-			const resp = await fetch(
-				AUTH0_URI,
-				{ headers: { Authorization: `Bearer ${accessToken}` } }
-			)
-			return resp.json<Auth0User>()
-		} catch (err) {
-			return err as Error
-		}
-	}
-
-	getTwitterUser = async (accessToken: string): Promise<Auth0User | Error> => {
+	getUserFromAccessToken = async (accessToken: string): Promise<Auth0User | Error> => {
 		try {
 			const resp = await fetch(
 				AUTH0_URI,
@@ -192,5 +159,35 @@ export class Auth {
 
 	buildErrorResponse = (provider: ProvidersLiterals, err?: Error): AuthenticatedResponse => {
 		return { authenticated: false, user: null, provider: provider, error: err }
+	}
+
+	// validateProvider compares the name of the provider with the "sub" (subject) in the returned response from Auth0
+	isValidProvider = (provider: ProvidersLiterals, sub: string): boolean => {
+		const parts = sub.split('|')
+		switch (provider) {
+			case ProvidersLiterals.Twitter:
+				// in case of Twitter, the format for "sub" is twitter|userid
+				if (parts && parts.length !== 2) {
+					return false
+				}
+
+				return parts[0] === 'twitter';
+			case ProvidersLiterals.Discord:
+				// in case of Discord, the format for "sub" is oauth2|discord|userid
+				if (parts && parts.length !== 3) {
+					return false
+				}
+
+				return parts[1] === 'discord'
+			case ProvidersLiterals.GitHub:
+				// in case of GitHub, the format for "sub" is github|username
+				if (parts && parts.length !== 2) {
+					return false
+				}
+
+				return parts[0] === 'github';
+			default:
+				return false
+		}
 	}
 }

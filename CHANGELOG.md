@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.0.5](https://github.com/cheqd/auth0-service/compare/1.0.4...1.0.5) (2022-11-15)
+
+
+### Bug Fixes
+
+* Auth0 GitHub provider ([#29](https://github.com/cheqd/auth0-service/issues/29)) ([b064e35](https://github.com/cheqd/auth0-service/commit/b064e357d187f5d0350c280febb4f000acf1578a))
+
+## [1.0.4](https://github.com/cheqd/auth0-service/compare/1.0.3...1.0.4) (2022-11-11)
+
+
+### Bug Fixes
+
+* Extract name for Twitter and Discord separately [DEV-1919] ([#28](https://github.com/cheqd/auth0-service/issues/28)) ([3087320](https://github.com/cheqd/auth0-service/commit/3087320d7b79a16bd264dd926caac4768d95d0dc))
+
+## [1.0.3](https://github.com/cheqd/auth0-service/compare/1.0.2...1.0.3) (2022-11-11)
+
+
+### Bug Fixes
+
+* Discord user handling [DEV-1896] ([#27](https://github.com/cheqd/auth0-service/issues/27)) ([4b46ec2](https://github.com/cheqd/auth0-service/commit/4b46ec26f1f677fbd6b27749fcc847475797d7fb))
+
 ## [1.0.2](https://github.com/cheqd/auth0-service/compare/1.0.1...1.0.2) (2022-11-08)
 
 ## [1.0.1](https://github.com/cheqd/auth0-service/compare/1.0.0...1.0.1) (2022-10-17)
