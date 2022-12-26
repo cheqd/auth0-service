@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.22.5",
-    "itty-router": "^2.6.6"
+    "itty-router": "^3.0.10"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20221111.1",
