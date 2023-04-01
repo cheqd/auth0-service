@@ -1,4 +1,4 @@
-name: "Cache Cleanup"
+name: "Cleanup - Cache"
 on:
   schedule:
     - cron: "0 0 * * 0"
