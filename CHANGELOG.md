@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.0.8-develop.1](https://github.com/cheqd/auth0-service/compare/1.0.7...1.0.8-develop.1) (2023-05-30)
+
 ## [1.0.7](https://github.com/cheqd/auth0-service/compare/1.0.6...1.0.7) (2023-02-15)
 
 ## [1.0.7-develop.1](https://github.com/cheqd/auth0-service/compare/1.0.6...1.0.7-develop.1) (2023-02-15)
