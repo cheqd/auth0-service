@@ -12,7 +12,6 @@ jobs:
 
   call-build:
     name: "Build & Test"
-    needs: call-lint
     uses: ./.github/workflows/build.yml
 
   call-staging:
@@ -23,7 +22,7 @@ jobs:
 
   call-release:
     name: "Release"
-    needs: [ call-lint, call-build ]
+    needs: call-staging
     if: ${{ github.ref_protected == true }}
     uses: ./.github/workflows/release.yml
     secrets: inherit
