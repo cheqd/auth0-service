@@ -35,7 +35,7 @@
     "itty-router": "^4.0.23"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231025.0",
+    "@cloudflare/workers-types": "^4.20240117.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^11.1.0",
     "@semantic-release/git": "^10.0.1",
